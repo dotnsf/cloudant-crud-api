@@ -1,0 +1,192 @@
+swagger: '2.0'
+info:
+  description: Cloudant CRUD API ドキュメント
+  version: 0.0.1
+  title: Cloudant CRUD REST APIs
+host: localhost:8080
+basePath: /
+tags:
+  - name: db
+    description: DB related API
+  - name: doc
+    description: Doc related API
+schemes:
+  - http
+  - https
+paths:
+  /:
+    get:
+      tags:
+        - db
+      summary: 全db取得
+      description: 全db取得
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+  /{db}:
+    post:
+      tags:
+        - db
+      summary: db作成
+      description: db作成
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    get:
+      tags:
+        - doc
+      summary: db内全doc取得
+      description: db内全doc取得
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    delete:
+      tags:
+        - db
+      summary: db削除
+      description: db削除
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+  /{db}/{id}:
+    post:
+      tags:
+        - doc
+      summary: doc作成
+      description: doc作成
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+        - name: id
+          type: string
+          in: path
+          description: id
+          required: true
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/DocRequest'
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    get:
+      tags:
+        - doc
+      summary: doc取得
+      description: doc取得
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+        - name: id
+          type: string
+          in: path
+          description: id
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    put:
+      tags:
+        - doc
+      summary: doc更新
+      description: doc更新
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+        - name: id
+          type: string
+          in: path
+          description: id
+          required: true
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/DocRequest'
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    delete:
+      tags:
+        - doc
+      summary: doc削除
+      description: doc削除
+      produces:
+        - application/json
+      parameters:
+        - name: db
+          type: string
+          in: path
+          description: db
+          required: true
+        - name: id
+          type: string
+          in: path
+          description: id
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+definitions:
+  DocRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 名前

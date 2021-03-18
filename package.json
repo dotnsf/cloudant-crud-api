@@ -1,0 +1,16 @@
+{
+    "name": "cloudant-crud-api",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "@cloudant/cloudant": "^4.3.1",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1"
+    },
+    "repository": {},
+    "engines": {
+        "node": "10.x"
+    }
+}
