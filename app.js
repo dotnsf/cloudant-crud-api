@@ -5,11 +5,7 @@ var express = require( 'express' ),
 
 var settings = require( './settings' );
 
-var cloudantlib = require( '@cloudant/cloudant' );
-var cloudant = null;
-if( settings.db_url && settings.db_username && settings.db_password ){
-  cloudant = cloudantlib( { url: settings.db_url, username: settings.db_username, password: settings.db_password } );
-}
+var cloudant = settings.cloudant;
 
 app.use( express.static( __dirname + '/public' ) );
 app.use( bodyParser.urlencoded( { extended: true, limit: '10mb' } ) );
@@ -41,7 +37,7 @@ app.get( '/', function( req, res ){
     });
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -62,7 +58,7 @@ app.post( '/:db', function( req, res ){
     });
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -90,7 +86,7 @@ app.get( '/:db', function( req, res ){
     });
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -111,7 +107,7 @@ app.delete( '/:db', function( req, res ){
     });
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -124,7 +120,7 @@ app.post( '/:db/:id', function( req, res ){
     var db = cloudant.db.use( param_db );
     if( !db ){
       res.status( 400 );
-      res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+      res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
       res.end();
     }else{
       var doc = req.body;
@@ -146,7 +142,7 @@ app.post( '/:db/:id', function( req, res ){
     }
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -159,7 +155,7 @@ app.get( '/:db/:id', function( req, res ){
     var db = cloudant.db.use( param_db );
     if( !db ){
       res.status( 400 );
-      res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+      res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
       res.end();
     }else{
       db.get( param_id, { include_docs: true }, function( err, body ){
@@ -175,7 +171,7 @@ app.get( '/:db/:id', function( req, res ){
     }
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -188,7 +184,7 @@ app.put( '/:db/:id', function( req, res ){
     var db = cloudant.db.use( param_db );
     if( !db ){
       res.status( 400 );
-      res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+      res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
       res.end();
     }else{
       db.get( param_id, { include_docs: true }, function( err, data ){
@@ -218,7 +214,7 @@ app.put( '/:db/:id', function( req, res ){
     }
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
@@ -231,7 +227,7 @@ app.delete( '/:db/:id', function( req, res ){
     var db = cloudant.db.use( param_db );
     if( !db ){
       res.status( 400 );
-      res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+      res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
       res.end();
     }else{
       db.get( param_id, { include_docs: true }, function( err, data ){
@@ -255,7 +251,7 @@ app.delete( '/:db/:id', function( req, res ){
     }
   }else{
     res.status( 400 );
-    res.write( JSON.stringify( { status: false, error: 'db not readly.' } ) );
+    res.write( JSON.stringify( { status: false, error: 'db not ready.' } ) );
     res.end();
   }
 });
